@@ -2,20 +2,40 @@
 public class BookMyStayApp {
     public static void main(String[] args) {
 
+        System.out.println("Concurrent Booking Simulation");
+
+        BookingRequestQueue bookingQueue = new BookingRequestQueue();
         RoomInventory inventory = new RoomInventory();
-        CancellationService cancelService = new CancellationService();
+        RoomAllocationService allocationService = new RoomAllocationService();
 
-        // Simulate bookings
-        cancelService.registerBooking("Single-1", "Single");
-        cancelService.registerBooking("Double-1", "Double");
+        // Add booking requests
+        bookingQueue.addRequest(new Reservation("Abhi", "Single"));
+        bookingQueue.addRequest(new Reservation("Vanmathi", "Double"));
+        bookingQueue.addRequest(new Reservation("Kural", "Suite"));
+        bookingQueue.addRequest(new Reservation("Subha", "Single"));
 
-        // Cancel booking
-        cancelService.cancelBooking("Single-1", inventory);
+        // Create threads
+        Thread t1 = new Thread(
+                new ConcurrentBookingProcessor(bookingQueue, inventory, allocationService)
+        );
 
-        // Show rollback history
-        cancelService.showRollbackHistory();
+        Thread t2 = new Thread(
+                new ConcurrentBookingProcessor(bookingQueue, inventory, allocationService)
+        );
 
-        // Show updated inventory
-        System.out.println("Updated Single Room Availability: " + inventory.getRoomCount("Single"));
+        // Start threads
+        t1.start();
+        t2.start();
+
+        // Wait for completion
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println("Thread execution interrupted.");
+        }
+
+        // Show remaining inventory
+        inventory.displayInventory();
     }
 }
