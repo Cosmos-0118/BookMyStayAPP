@@ -1,20 +1,18 @@
 public class BookMyStayApp{
     public static void main(String[] args) {
-        System.out.println("=======================================");
-        System.out.println("   Welcome to Book My Stay App!");
-        System.out.println("   Hotel Booking Management System v1.0");
-        System.out.println("=======================================\n");
-        Room singleRoom = new SingleRoom();
-        Room doubleRoom = new DoubleRoom();
-        Room suiteRoom = new SuiteRoom();
-        int singleRoomAvailability = 10;
-        int doubleRoomAvailability = 5;
-        int suiteRoomAvailability = 2;
-        singleRoom.displayRoomDetails();
-        System.out.println("Available: " + singleRoomAvailability);
-        doubleRoom.displayRoomDetails();
-        System.out.println("Available: " + doubleRoomAvailability);
-        suiteRoom.displayRoomDetails();
-        System.out.println("Available: " + suiteRoomAvailability);
+        System.out.println("Booking Request Queue");
+        BookingRequestQueue bookingQueue = new BookingRequestQueue();
+        Reservation r1 = new Reservation("Abhi", "Single");
+        Reservation r2 = new Reservation("Subha", "Double");
+        Reservation r3 = new Reservation("Vanmathi", "Suite");
+
+        bookingQueue.addRequest(r1);
+        bookingQueue.addRequest(r2);
+        bookingQueue.addRequest(r3);
+
+        while(bookingQueue.hasPendingRequest()){
+            Reservation r = bookingQueue.getNextRequest();
+            System.out.println("Processing booking for Guest: "+ r.getGuestName() + ", Room Type: "+ r.getroomType());
+        }
     }
 }
