@@ -6,5 +6,5 @@ public class Reservation {
         this.roomType = roomType;
     }
     public String getGuestName(){return guestName;}
-    public String getroomType(){return roomType;}
+    public String getRoomType(){return roomType;}
 }
