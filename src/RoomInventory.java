@@ -26,4 +26,10 @@ public class RoomInventory {
     Map<String, Integer> getRoomAvailability(){
         return new HashMap<>(inventory);
     }
+    public void incrementRoom(String roomType) {
+        inventory.put(roomType, inventory.get(roomType) + 1);
+    }
+    public int getRoomCount(String roomType){
+        return inventory.get(roomType);
+    }
 }

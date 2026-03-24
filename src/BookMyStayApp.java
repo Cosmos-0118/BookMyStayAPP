@@ -1,10 +1,21 @@
-public class BookMyStayApp{
+
+public class BookMyStayApp {
     public static void main(String[] args) {
-        BookingHistory history = new BookingHistory();
-        history.addReservation(new Reservation("Abhi", "Single"));
-        history.addReservation(new Reservation("Subha", "Double"));
-        history.addReservation(new Reservation("Vanmathi", "Suite"));
-        BookingReportService reportService = new BookingReportService();
-        reportService.generateReport(history);
+
+        RoomInventory inventory = new RoomInventory();
+        CancellationService cancelService = new CancellationService();
+
+        // Simulate bookings
+        cancelService.registerBooking("Single-1", "Single");
+        cancelService.registerBooking("Double-1", "Double");
+
+        // Cancel booking
+        cancelService.cancelBooking("Single-1", inventory);
+
+        // Show rollback history
+        cancelService.showRollbackHistory();
+
+        // Show updated inventory
+        System.out.println("Updated Single Room Availability: " + inventory.getRoomCount("Single"));
     }
 }
