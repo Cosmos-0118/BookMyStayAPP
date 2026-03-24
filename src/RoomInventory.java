@@ -29,7 +29,16 @@ public class RoomInventory {
     public void incrementRoom(String roomType) {
         inventory.put(roomType, inventory.get(roomType) + 1);
     }
+    public void decrementRoom(String roomType) {
+        inventory.put(roomType, inventory.get(roomType) - 1);
+    }
     public int getRoomCount(String roomType){
         return inventory.get(roomType);
+    }
+    public Map<String, Integer> getAllRooms() {
+        return inventory;
+    }
+    public void setRoomCount(String roomType, int count) {
+        inventory.put(roomType, count);
     }
 }
