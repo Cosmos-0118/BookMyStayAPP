@@ -12,7 +12,7 @@ public class BookingRequestQueue {
     public Reservation getNextRequest(){
         return requestQueue.poll();
     }
-    public boolean hasPendingRequest(){
+    public boolean hasPendingRequests(){
         return !requestQueue.isEmpty();
     }
 }
